@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import API from '../utils/API';
-import { Link, Redirect } from 'react-router-dom';
-import Axios from 'axios';
+// import { Link, Redirect } from 'react-router-dom';
+import { Input, FormBtn } from '../components/Form';
+
 
 class Search extends Component {
     state = {
@@ -9,7 +10,7 @@ class Search extends Component {
         title: '',
         hasSearched: false
     };
-    
+
     handleInputChange = e => {
         const { name, value } = e.target;
         this.setState({
@@ -21,27 +22,42 @@ class Search extends Component {
         e.preventDefault();
 
         if (this.state.title) {
-            
+
             const title = this.state.title;
 
             API.bookSearch(title)
-            .then(results => {
-                
-                console.log(results.data.items);
+                .then(results => {
 
-                this.setState({
-                    results: results.data.items,
-                    hasSearched: true
-                });
-            })
-            .catch(err => console.log(err));
+                    console.log(results.data.items);
+
+                    this.setState({
+                        results: results.data.items,
+                        hasSearched: true
+                    });
+                })
+                .catch(err => console.log(err));
         };
     };
 
-    render() { 
-        <form >
-            <input type="text"/>
-        </form>
+    render() {
+        return (
+            <form >
+                <Input
+                    value={this.state.title}
+                    onChange={this.handleInputChange}
+                    name='title'
+                    label='Title'
+                    placeholder='Search for a book by title'
+                />
+                <FormBtn
+                    onClick={this.handleFormSubmit}
+                    classname='btn btn-primary'
+                >
+                    Search
+            </FormBtn>
+            </form>
+        )
     }
-
 }
+
+export default Search
