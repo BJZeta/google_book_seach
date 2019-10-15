@@ -15,3 +15,11 @@ export function FormBtn(props) {
         </button>
     );
 };
+
+export function SaveBtn(props) {
+    return (
+        <button {...props} style={{paddingBottom: 10 }} className='btn btn-success'>
+            {props.children}
+        </button>
+    );
+};

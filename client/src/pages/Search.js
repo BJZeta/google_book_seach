@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import API from '../utils/API';
-// import { Link, Redirect } from 'react-router-dom';
-import { Input, FormBtn } from '../components/Form';
+import { Input, FormBtn, SaveBtn } from '../components/Form';
+import { List, ListItem } from '../components/List';
 
 
 class Search extends Component {
@@ -31,7 +31,7 @@ class Search extends Component {
                     console.log(results.data.items);
 
                     this.setState({
-                        results: results.data.items,
+                        books: results.data.items,
                         hasSearched: true
                     });
                 })
@@ -39,23 +39,62 @@ class Search extends Component {
         };
     };
 
+    bookSaver = book => {
+        API.saveBook(book)
+        .then(res => {
+            const remaingBooks = this.state.books.filter(book => book.id !== res.data.id);
+            this.setState({
+                books: remaingBooks
+            });
+        })
+        .catch(err => console.log(err));
+    }
+
     render() {
         return (
-            <form >
-                <Input
-                    value={this.state.title}
-                    onChange={this.handleInputChange}
-                    name='title'
-                    label='Title'
-                    placeholder='Search for a book by title'
-                />
-                <FormBtn
-                    onClick={this.handleFormSubmit}
-                    classname='btn btn-primary'
-                >
-                    Search
+            <div>
+                <form >
+                    <Input
+                        value={this.state.title}
+                        onChange={this.handleInputChange}
+                        name='title'
+                        label='Title'
+                        placeholder='Search for a book by title'
+                    />
+                    <FormBtn
+                        onClick={this.handleFormSubmit}
+                        classname='btn btn-primary'
+                    >
+                        Search
             </FormBtn>
-            </form>
+                </form>
+                {this.state.books.length ? (
+                    <List >
+                        {this.state.books.map(book => (
+                            <ListItem key={book.id}>
+                                <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title}/>
+                                <br/>
+                                <strong>{book.volumeInfo.title}</strong>
+                                <br/>
+                                <strong>By: {book.volumeInfo.authors[0]}</strong>
+                                <p>{book.volumeInfo.description}</p>
+                                <SaveBtn
+                                onClick={() => this.bookSaver({
+                                    _id: book.id,
+                                    author: book.volumeInfo.authors[0],
+                                    title: book.volumeInfo.title,
+                                    description: book.volumeInfo.description,
+                                    img: book.volumeInfo.imageLinks.thumbnail,
+                                    link: book.selfLink
+                                })}
+                                >Save</SaveBtn>
+                            </ListItem>
+                        ))}
+                    </List>
+                ) : (
+                    <h3>No Results</h3>
+                )}
+            </div>
         )
     }
 }
