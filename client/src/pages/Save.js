@@ -41,7 +41,7 @@ class Save extends Component {
                         <List >
                             {this.state.books.map(book => (
                                 <ListItem key={book._id}>
-                                    <img src={book.img} alt={book.title} />
+                                    <img src={book.image} alt={book.title} />
                                     <br />
                                     <strong>{book.title}</strong>
                                     <br />

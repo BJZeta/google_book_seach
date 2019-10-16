@@ -89,7 +89,7 @@ class Search extends Component {
                                             author: book.volumeInfo.authors[0],
                                             title: book.volumeInfo.title,
                                             description: book.volumeInfo.description,
-                                            img: book.volumeInfo.imageLinks.thumbnail,
+                                            image: book.volumeInfo.imageLinks.thumbnail,
                                             link: book.selfLink
                                         })}
                                     >Save</SaveBtn>
