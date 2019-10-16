@@ -23,3 +23,19 @@ export function SaveBtn(props) {
         </button>
     );
 };
+
+export function ViewBtn(props) {
+    return (
+        <button {...props} style={{paddingBottom: 10 }} className='btn btn-success'>
+            {props.children}
+        </button>
+    );
+};
+
+export function DeleteBtn(props) {
+    return (
+        <button {...props} style={{paddingBottom: 10 }} className='btn btn-danger'>
+            {props.children}
+        </button>
+    );
+};

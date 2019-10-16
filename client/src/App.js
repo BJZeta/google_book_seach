@@ -2,14 +2,20 @@ import React from 'react';
 import Nav from './components/Nav';
 import Jumbotron from './components/Jumbotron';
 import Search from './pages/Search';
+import Save from './pages/Save';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import NoMatch from './pages/404Page';
 function App() {
   return (
-    <div>
-      <Nav />
-      <Jumbotron />
-      <Search/>
-
-    </div>
+    <Router>
+      <div>
+        <Switch>
+          <Route exact path='/' component={Search}/>
+          <Route exact path='/saved' component={Save}/>
+          <Route component={NoMatch}/>
+        </Switch>
+      </div>
+    </Router>
   )
 }
 
