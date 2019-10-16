@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import API from '../utils/API';
+import Nav from '../components/Nav';
+import Jumbotron from '../components/Jumbotron';
 import { ViewBtn, DeleteBtn } from '../components/Form';
 import { List, ListItem } from '../components/List';
 
@@ -23,7 +25,7 @@ class Save extends Component {
             .catch(err => console.log(err));
     }
 
-    deleteBook = () => {
+    deleteBook = id => {
         API.deleteBook(id)
             .then(res => this.getBooks())
             .catch(err => console.log(err));
@@ -32,33 +34,37 @@ class Save extends Component {
     render() {
         return (
             <div>
-                {this.state.books.length ? (
-                    <List >
-                        {this.state.books.map(book => (
-                            <ListItem key={book._id}>
-                                <img src={book.img} alt={book.title} />
-                                <br />
-                                <strong>{book.title}</strong>
-                                <br />
-                                <strong>By: {book.author}</strong>
-                                <p>{book.description}</p>
-                                <ViewBtn
-                                    href={book.link}
-                                >
-                                    View
+                <Nav/>
+                <Jumbotron/>
+                <div>
+                    {this.state.books.length ? (
+                        <List >
+                            {this.state.books.map(book => (
+                                <ListItem key={book._id}>
+                                    <img src={book.img} alt={book.title} />
+                                    <br />
+                                    <strong>{book.title}</strong>
+                                    <br />
+                                    <strong>By: {book.author}</strong>
+                                    <p>{book.description}</p>
+                                    <ViewBtn
+                                        href={book.link}
+                                    >
+                                        View
                                 </ViewBtn>
-                                <DeleteBtn
-                                    id={book._id}
-                                    onClick={() => this.deleteBook(book._id)}
-                                >
-                                    Delete
+                                    <DeleteBtn
+                                        id={book._id}
+                                        onClick={() => this.deleteBook(book._id)}
+                                    >
+                                        Delete
                                 </DeleteBtn>
-                            </ListItem>
-                        ))}
-                    </List>
-                ) : (
-                        <h3>Nothing Saved :(</h3>
-                    )}
+                                </ListItem>
+                            ))}
+                        </List>
+                    ) : (
+                            <h3>Nothing Saved :(</h3>
+                        )}
+                </div>
             </div>
         )
     }

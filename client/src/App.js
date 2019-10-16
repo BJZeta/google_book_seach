@@ -1,6 +1,4 @@
 import React from 'react';
-import Nav from './components/Nav';
-import Jumbotron from './components/Jumbotron';
 import Search from './pages/Search';
 import Save from './pages/Save';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Nav() {
     return (
@@ -7,16 +8,10 @@ function Nav() {
                 <h3>React Google Book Search</h3>
             </li>
             <li class="nav-item">
-                <a className="nav-link active" href="#">Active</a>
+                <Link className="nav-link" to='/' role='button'>Search</Link>
             </li>
             <li className="nav-item">
-                <a className="nav-link" href="#">Link</a>
-            </li>
-            <li className="nav-item">
-                <a className="nav-link" href="#">Link</a>
-            </li>
-            <li className="nav-item">
-                <a className="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                <Link className="nav-link" to='/saved' role='button'>Saved</Link>
             </li>
         </ul>
     );
