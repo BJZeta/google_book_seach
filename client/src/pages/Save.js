@@ -50,7 +50,7 @@ class Save extends Component {
                                     <ViewBtn
                                         href={book.link}
                                     >
-                                        View
+                                        <a href={book.link}>View</a>
                                 </ViewBtn>
                                     <DeleteBtn
                                         id={book._id}
